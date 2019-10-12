@@ -1,7 +1,5 @@
 package com.shinebo.mybatisplus.controller;
 
-
-
 import com.shinebo.mybatisplus.database.entity.User;
 import com.shinebo.mybatisplus.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +43,6 @@ public class UserController {
     @GetMapping("/user/{id}")
     public User getUserById(@PathVariable("id") String id) {
         User user = userService.getUserById(id);
-        System.out.println(user);
         return user;
     }
 
@@ -73,5 +70,4 @@ public class UserController {
         Map res = userService.delUserByUserId(id);
         return res;
     }
-
 }
