@@ -1,4 +1,4 @@
-package com.shinebo.mybatisplus.controller;
+package com.shinebo.mybatisplus.web.v1;
 
 import com.shinebo.mybatisplus.database.entity.User;
 import com.shinebo.mybatisplus.service.UserService;
