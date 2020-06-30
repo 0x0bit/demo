@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -36,13 +37,13 @@ func downloadUrl(url string, queue chan string)  {
 	links := collectlinks.All(resp.Body)
 
 
-	for _, link := range links {
+	for i, link := range links {
 		// 去重和转为绝对路径
 		absolute := UrlJoins(link, url)
 		if url !="" {
 			if !isVisited[absolute] {
-				fmt.Println("parse url--->", absolute)
-				traceFile(`input.txt`, absolute)
+				fmt.Println("parse url--->",strconv.Itoa(i),"--->", absolute)
+				traceFile(`input.txt`, absolute, i)
 				go func() {
 					queue <- absolute
 				}()
@@ -66,10 +67,10 @@ func UrlJoins(href, base string) string {
 /**
 	追加写入文件
  */
-func traceFile(fileName,strContent string)  {
+func traceFile(fileName,strContent string, index int)  {
 	fd,_:=os.OpenFile(fileName, os.O_RDWR|os.O_CREATE|os.O_APPEND,0644)
 	fdTime :=time.Now().Format(`2006-01-02 15:04:05`)
-	fdContent :=strings.Join([]string{fdTime,"=====", strContent,"\n"},"")
+	fdContent :=strings.Join([]string{fdTime,"===<",strconv.Itoa(index), ">===", strContent,"\n"},"")
 	buf:=[]byte(fdContent)
 	_, _ = fd.Write(buf)
 	_ = fd.Close()

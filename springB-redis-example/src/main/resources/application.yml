@@ -1,0 +1,6 @@
+spring:
+  redis:
+    # 0 就表示用他里面的数据库
+    database: 0
+    host: localhost
+    port: 6379
